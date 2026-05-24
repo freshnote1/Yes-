@@ -1,0 +1,1110 @@
+<!-- ══════════════════════════════════════════════════════════
+     NMCN CBT Practice — Blogger Compatible (Rebuilt)
+     Paste into Blogger HTML/JavaScript gadget
+══════════════════════════════════════════════════════════ -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+html,body{margin:0!important;padding:0!important;overflow-x:hidden!important}
+.body-fauxcolumn-outer,.outer-wrapper,.main-outer,.main-inner,.fauxborder-left,
+.fauxborder-right,#outer-wrapper,#main-wrapper,#content-wrapper,#main,
+.post-body,.post,.hentry,.widget,.widget-content,.Blog{
+  padding:0!important;margin:0!important;max-width:100%!important;width:100%!important;
+  background:transparent!important;border:none!important;box-shadow:none!important}
+:root{
+  --ink:#0a0f1e;--ink2:#2d3650;--muted:#6b7a99;--border:#dde3f0;
+  --bg:#f4f6fb;--white:#ffffff;--blue:#1549d6;--blue2:#2563eb;
+  --sky:#e8eeff;--gold:#f59e0b;--green:#16a34a;--red:#dc2626;
+}
+*{box-sizing:border-box;}
+#app{
+  position:fixed;top:0;left:0;width:100vw;height:100dvh;
+  overflow-y:auto;overflow-x:hidden;background:var(--bg);
+  font-family:'Outfit',sans-serif;color:var(--ink);
+  -webkit-font-smoothing:antialiased;z-index:99999;
+}
+#app::before{
+  content:'';position:fixed;top:0;right:0;width:480px;height:480px;
+  background:radial-gradient(circle at 70% 30%,rgba(21,73,214,0.08) 0%,transparent 70%);
+  pointer-events:none;z-index:0;
+}
+.display{font-family:'Playfair Display',serif;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:16px;box-shadow:0 1px 3px rgba(10,15,30,0.06),0 4px 16px rgba(10,15,30,0.04);}
+.card-flat{background:var(--white);border:1px solid var(--border);border-radius:12px;}
+.btn-blue{background:var(--blue);color:#fff;border:none;border-radius:10px;font-weight:600;font-family:'Outfit',sans-serif;cursor:pointer;transition:all 0.18s;box-shadow:0 2px 8px rgba(21,73,214,0.25);}
+.btn-blue:hover:not(:disabled){background:var(--blue2);box-shadow:0 4px 16px rgba(21,73,214,0.35);transform:translateY(-1px);}
+.btn-blue:disabled{opacity:0.38;cursor:not-allowed;transform:none;}
+.btn-ghost{background:transparent;color:var(--ink2);border:1.5px solid var(--border);border-radius:10px;font-weight:500;font-family:'Outfit',sans-serif;cursor:pointer;transition:all 0.18s;}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue);background:var(--sky);}
+select{background:var(--white);border:1.5px solid var(--border);border-radius:10px;color:var(--ink);font-family:'Outfit',sans-serif;font-size:14px;transition:border-color 0.18s,box-shadow 0.18s;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7a99' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
+select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(21,73,214,0.1);}
+.opt{background:var(--white);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.15s;text-align:left;width:100%;font-family:'Outfit',sans-serif;display:flex;align-items:flex-start;gap:12px;padding:14px 16px;}
+.opt:hover:not(:disabled){border-color:var(--blue);background:var(--sky);}
+.opt.selected{border-color:var(--blue);background:#eef2ff;}
+.opt.correct{border-color:var(--green);background:#f0fdf4;}
+.opt.wrong{border-color:var(--red);background:#fef2f2;}
+.opt-label{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;background:var(--bg);color:var(--muted);transition:all 0.15s;}
+.opt.selected .opt-label{background:var(--blue);color:#fff;}
+.opt.correct .opt-label{background:var(--green);color:#fff;}
+.opt.wrong .opt-label{background:var(--red);color:#fff;}
+.prog-track{background:#e2e8f4;border-radius:99px;overflow:hidden;}
+.prog-fill{background:linear-gradient(90deg,var(--blue),#4f83f5);border-radius:99px;transition:width 0.45s cubic-bezier(.4,0,.2,1);height:100%;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideRight{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.anim-up{animation:fadeUp 0.4s ease-out both;}
+.anim-in{animation:fadeIn 0.35s ease-out both;}
+.anim-right{animation:slideRight 0.35s ease-out both;}
+.spin{animation:spin 0.7s linear infinite;}
+.shimmer-box{background:linear-gradient(90deg,#e8edf8 25%,#f4f6fb 50%,#e8edf8 75%);background-size:400px 100%;animation:shimmer 1.5s infinite;border-radius:12px;}
+.chk{appearance:none;width:18px;height:18px;border:1.5px solid var(--border);border-radius:5px;background:var(--white);cursor:pointer;position:relative;flex-shrink:0;transition:all 0.15s;}
+.chk:checked{background:var(--blue);border-color:var(--blue);}
+.chk:checked::after{content:'';position:absolute;left:4px;top:1px;width:5px;height:9px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg);}
+.badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px;letter-spacing:0.04em;}
+.badge-study{background:#eef2ff;color:var(--blue);}
+.badge-exam{background:#fffbeb;color:#b45309;}
+.score-circle{position:relative;display:inline-flex;align-items:center;justify-content:center;}
+.score-circle svg{transform:rotate(-90deg);}
+.score-circle .inner{position:absolute;text-align:center;}
+#toast{transition:opacity 0.3s,transform 0.3s;pointer-events:none;}
+#toast.visible{pointer-events:auto;}
+#toast.hidden-toast{opacity:0;transform:translateY(10px);}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:var(--muted);}
+.tagline-bar{width:40px;height:4px;background:var(--blue);border-radius:2px;}
+#qnum-grid button,#mobile-qnum-grid button{width:34px;height:34px;border-radius:8px;font-size:12px;font-weight:600;border:1.5px solid var(--border);background:var(--white);color:var(--muted);cursor:pointer;transition:all 0.15s;font-family:'Outfit',sans-serif;}
+#qnum-grid button.answered,#mobile-qnum-grid button.answered{background:#eef2ff;border-color:var(--blue);color:var(--blue);}
+#qnum-grid button.current,#mobile-qnum-grid button.current{background:var(--blue);border-color:var(--blue);color:#fff;}
+#mobile-qnum-drawer{position:fixed;top:0;right:0;bottom:0;width:340px;background:var(--white);border-left:1px solid var(--border);padding:24px 20px;z-index:40;box-shadow:-4px 0 28px rgba(10,15,30,0.1);overflow-y:auto;transform:translateX(100%);transition:transform 0.3s cubic-bezier(.4,0,.2,1);}
+#mobile-qnum-drawer.open{transform:translateX(0);}
+#drawer-overlay{display:none;position:fixed;inset:0;background:rgba(10,15,30,0.35);z-index:39;}
+#drawer-overlay.open{display:block;}
+/* ── MOBILE DRAWER ── */
+@media(max-width:700px){
+  #mobile-qnum-drawer{top:auto;right:0;left:0;bottom:0;width:100%;border-left:none;border-top:1px solid var(--border);border-radius:18px 18px 0 0;padding:20px 16px;box-shadow:0 -4px 28px rgba(10,15,30,0.12);transform:translateY(100%);max-height:85vh;}
+  #mobile-qnum-drawer.open{transform:translateY(0);}
+  #quiz-sidebar{display:none!important;}
+  #quiz-body{grid-template-columns:1fr!important;gap:0!important;padding:10px 10px 88px!important;}
+  #mobile-qnav{display:flex!important;}
+  #quiz-nav-row{display:none!important;}
+  /* topbar on mobile — hide quiz title text, shrink gaps */
+  #quiz-title{display:none!important;}
+  #quiz-access-badge{display:none!important;}
+  .topbar-inner{height:52px!important;gap:8px!important;}
+  #question-counter{font-size:11px!important;}
+  #mode-badge{font-size:10px!important;padding:2px 7px!important;}
+  #timer-display{font-size:13px!important;min-width:36px!important;}
+}
+@media(min-width:701px){#mobile-qnav{display:none!important;}}
+
+/* ── SMALL SCREENS ── */
+@media(max-width:480px){
+  /* Menu */
+  #main-menu>div{padding:14px 12px!important;}
+  #menu-hero{padding:18px 16px!important;gap:14px!important;}
+  #menu-hero h2{font-size:18px!important;}
+  #menu-hero .badge-row{display:none!important;}
+  #menu-controls{padding:14px!important;}
+  #menu-controls select{font-size:13px!important;padding:9px 10px!important;}
+  /* Quiz topbar */
+  #question-text{font-size:14px!important;line-height:1.65!important;}
+  #question-container .card{padding:14px 14px!important;}
+  .opt{padding:11px 12px!important;gap:10px!important;}
+  .opt-label{width:28px!important;height:28px!important;font-size:12px!important;}
+  /* Results */
+  #results-screen>div{padding:12px 10px!important;}
+  #results-screen .card:first-child{padding:20px 14px!important;}
+  .results-stats-row{flex-direction:column!important;gap:20px!important;}
+  .score-circle svg{width:120px!important;height:120px!important;}
+  .score-circle .inner p.display{font-size:26px!important;}
+  /* History */
+  .hist-stats-grid{grid-template-columns:repeat(3,1fr)!important;gap:6px!important;}
+  /* Modals */
+  #exit-modal>div,#clear-modal>div,#submit-modal>div,#clear-favs-modal>div{margin:0 10px!important;padding:20px 16px!important;}
+  /* Toast */
+  #toast{left:10px!important;right:10px!important;max-width:none!important;bottom:90px!important;}
+  /* Download/History/Favourites screens */
+  #download-screen>div,#history-screen>div,#favorites-screen>div{padding:20px 12px!important;}
+}
+</style>
+
+<div id="app">
+
+<!-- LOADING SCREEN -->
+<div id="loading-screen" style="height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px">
+  <div style="width:64px;height:64px" class="shimmer-box"></div>
+  <div style="width:180px;height:20px" class="shimmer-box"></div>
+  <div style="width:240px;height:8px;border-radius:99px;overflow:hidden;background:#e2e8f4">
+    <div class="prog-fill shimmer-box" style="width:55%;height:100%"></div>
+  </div>
+  <p id="loading-msg" style="font-size:13px;color:var(--muted)">Preparing your portal…</p>
+</div>
+
+<!-- MAIN MENU -->
+<div id="main-menu" style="display:none">
+  <div style="max-width:960px;margin:0 auto;padding:40px 20px">
+    <div class="anim-up" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:14px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="width:44px;height:44px;border-radius:12px;background:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="22" height="22" fill="none" stroke="#fff" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        </div>
+        <div>
+          <p style="font-size:11px;font-weight:600;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase">Examination Portal</p>
+          <h1 class="display" style="font-size:22px;color:var(--ink);line-height:1.1">NMCN CBT Practice</h1>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <span id="access-badge"></span>
+        <button onclick="showHistory()" class="btn-ghost" style="padding:9px 14px;font-size:13px;display:flex;align-items:center;gap:6px">
+          <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+          History
+        </button>
+        <button onclick="showFavorites()" class="btn-ghost" style="padding:9px 14px;font-size:13px;display:flex;align-items:center;gap:6px;color:#d97706;border-color:#fde68a;">
+          <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+          Favourites
+        </button>
+        <button onclick="showDownloadManager()" class="btn-ghost" style="padding:9px 14px;font-size:13px;display:flex;align-items:center;gap:6px">
+          <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+          Downloads
+        </button>
+      </div>
+    </div>
+
+    <div id="menu-hero" class="card anim-up" style="padding:28px 32px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#0f3bb5 0%,var(--blue) 55%,#4f83f5 100%);border:none;color:#fff;gap:24px;flex-wrap:wrap;margin-bottom:20px">
+      <div>
+        <div class="tagline-bar" style="background:rgba(255,255,255,0.4);margin-bottom:12px"></div>
+        <h2 class="display" style="font-size:24px;line-height:1.2;margin-bottom:6px">NMCN CBT Practice</h2>
+        <p id="welcome-msg" style="font-size:13px;opacity:0.75;font-weight:300;max-width:380px">Select a course and material to begin your session.</p>
+      </div>
+      <div class="badge-row" style="display:flex;gap:8px;flex-wrap:wrap">
+        <span style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:99px;padding:4px 12px;font-size:11px;font-weight:500">Study Mode</span>
+        <span style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:99px;padding:4px 12px;font-size:11px;font-weight:500">Exam Mode</span>
+        <span style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:99px;padding:4px 12px;font-size:11px;font-weight:500">Offline Access</span>
+      </div>
+    </div>
+
+    <div id="guest-notice" style="display:none;margin-bottom:16px">
+      <div style="background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid #fde68a;border-radius:14px;padding:16px 20px;display:flex;align-items:flex-start;gap:14px">
+        <div style="width:40px;height:40px;border-radius:10px;background:#f59e0b;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="20" height="20" fill="none" stroke="#fff" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+        </div>
+        <div style="flex:1">
+          <p style="font-size:14px;font-weight:700;color:#92400e;margin-bottom:3px">Guest Access — 10 Questions Per Course</p>
+          <p style="font-size:13px;color:#b45309;line-height:1.5">You are currently on a free preview. Activate full access to unlock all questions.</p>
+          <a href="https://www.freshnote.com.ng/p/access-code.html" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:#f59e0b;color:#fff;border-radius:9px;padding:8px 16px;font-size:13px;font-weight:700;text-decoration:none">Activate Full Access</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="menu-controls" class="card anim-up" style="padding:20px;margin-bottom:20px">
+      <div style="margin-bottom:16px">
+        <label style="display:block;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px">1 · Course</label>
+        <select id="category-select" style="width:100%;padding:10px 14px;font-size:13px" onchange="onCategoryChange()">
+          <option value="">Choose a course…</option>
+        </select>
+      </div>
+      <div id="material-select-wrap" style="margin-bottom:16px;display:none">
+        <label style="display:block;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px">2 · Material</label>
+        <select id="material-select" style="width:100%;padding:10px 14px;font-size:13px" onchange="onMaterialChange()">
+          <option value="">Choose a material…</option>
+        </select>
+      </div>
+      <div id="selected-course-pill" style="display:none;background:var(--sky);border:1.5px solid #bfdbfe;border-radius:10px;padding:10px 14px;margin-bottom:16px">
+        <p style="font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:2px">Selected</p>
+        <p id="selected-course-name" style="font-size:13px;font-weight:600;color:var(--ink);line-height:1.35"></p>
+      </div>
+      <div style="height:1px;background:var(--border);margin-bottom:16px"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;min-width:0">
+        <div>
+          <label style="display:block;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px">Mode</label>
+          <select id="mode-select" style="width:100%;padding:9px 12px;font-size:13px">
+            <option value="study">Study (with hints)</option>
+            <option value="exam">Exam (timed)</option>
+          </select>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;padding-top:22px" id="shuffle-wrap">
+          <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:12px;font-weight:600;color:var(--ink)" id="shuffle-q-label">
+            <input type="checkbox" class="chk" id="shuffle-checkbox"> Shuffle Questions
+          </label>
+          <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:12px;font-weight:600;color:var(--ink)" id="shuffle-o-label">
+            <input type="checkbox" class="chk" id="shuffle-options-checkbox" checked> Shuffle Options
+          </label>
+          <p id="shuffle-guest-msg" style="display:none;font-size:11px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:7px;padding:5px 8px;margin-top:2px;line-height:1.4">Shuffle disabled for guest users</p>
+        </div>
+      </div>
+      <button onclick="startQuizFromSelection()" id="start-btn" class="btn-blue" style="width:100%;padding:13px;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px" disabled>
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        Begin Session
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ SCREEN -->
+<div id="quiz-screen" style="display:none;min-height:100vh">
+  <div style="background:var(--white);border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:0;z-index:20">
+    <div class="topbar-inner" style="max-width:1100px;margin:0 auto;height:58px;display:flex;align-items:center;justify-content:space-between;gap:12px;overflow:hidden">
+      <button onclick="confirmExit()" class="btn-ghost" style="padding:7px 12px;font-size:13px;display:flex;align-items:center;gap:5px;flex-shrink:0;white-space:nowrap">
+        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>Exit
+      </button>
+      <div style="flex:1;min-width:0;display:flex;align-items:center;gap:8px;overflow:hidden">
+        <span id="question-counter" style="font-size:12px;font-weight:600;color:var(--muted);white-space:nowrap;flex-shrink:0">1 / 10</span>
+        <div class="prog-track" style="flex:1;min-width:30px;height:6px"><div id="progress-bar" class="prog-fill" style="width:0%"></div></div>
+        <span id="mode-badge" class="badge badge-study" style="flex-shrink:0;white-space:nowrap">Study</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+        <span id="quiz-access-badge"></span>
+        <div style="width:32px;height:32px;border-radius:9px;background:var(--sky);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="15" height="15" fill="none" stroke="var(--blue)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </div>
+        <span id="timer-display" style="font-family:'Outfit',monospace;font-weight:700;font-size:14px;color:var(--ink);min-width:38px;flex-shrink:0">--:--</span>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:1100px;margin:0 auto;padding:24px 20px;display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start" id="quiz-body">
+    <div class="card" style="padding:20px;position:sticky;top:78px" id="quiz-sidebar">
+      <p style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:14px">Questions</p>
+      <div id="qnum-grid" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+      <div style="margin-top:18px;padding-top:16px;border-top:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><div style="width:10px;height:10px;border-radius:3px;background:#eef2ff;border:1.5px solid var(--blue)"></div><span style="font-size:11px;color:var(--muted)">Answered</span></div>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><div style="width:10px;height:10px;border-radius:3px;background:var(--white);border:1.5px solid var(--border)"></div><span style="font-size:11px;color:var(--muted)">Unanswered</span></div>
+        <div style="display:flex;align-items:center;gap:6px"><div style="width:10px;height:10px;border-radius:3px;background:var(--blue)"></div><span style="font-size:11px;color:var(--muted)">Current</span></div>
+      </div>
+    </div>
+    <div>
+      <div id="question-container" class="anim-in">
+        <div class="card" style="padding:28px 32px;margin-bottom:16px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+            <div style="background:var(--blue);color:#fff;border-radius:9px;padding:5px 12px;font-size:13px;font-weight:700" id="q-label">Q1</div>
+            <div style="flex:1;height:1px;background:var(--border)"></div>
+            <button id="fav-btn" onclick="toggleFavorite()" title="Save to Favourites" style="background:none;border:none;cursor:pointer;padding:4px 6px;border-radius:8px;transition:background 0.15s;display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--muted)" onmouseover="this.style.background='#fffbeb'" onmouseout="this.style.background='none'">
+              <svg id="fav-icon" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+              <span id="fav-label">Save</span>
+            </button>
+            <div id="quiz-title" style="font-size:13px;font-weight:600;color:var(--muted)">Course</div>
+          </div>
+          <p id="question-text" style="font-size:16px;line-height:1.65;color:var(--ink);font-weight:400">Question text loads here</p>
+        </div>
+        <div id="options-container" style="display:flex;flex-direction:column;gap:10px"></div>
+        <div id="explanation-box" style="display:none;margin-top:16px">
+          <div style="background:#f0f7ff;border:1.5px solid #bfdbfe;border-radius:12px;padding:18px 20px">
+            <p style="font-size:12px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;display:flex;align-items:center;gap:6px">
+              <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>Explanation
+            </p>
+            <p id="explanation-text" style="font-size:14px;color:var(--ink2);line-height:1.6"></p>
+          </div>
+        </div>
+        <div id="quiz-nav-row" style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap">
+          <button id="prev-btn" onclick="prevQuestion()" class="btn-ghost" style="padding:12px 22px;font-size:14px;display:flex;align-items:center;gap:6px">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>Previous
+          </button>
+          <button id="next-btn" onclick="nextQuestion()" class="btn-blue" style="padding:12px 28px;font-size:14px;display:flex;align-items:center;gap:6px">
+            Next<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </button>
+          <button onclick="toggleDrawer()" style="margin-left:auto;padding:12px 20px;font-size:14px;font-weight:600;border-radius:10px;cursor:pointer;font-family:'Outfit',sans-serif;background:var(--sky);color:var(--blue);border:1.5px solid #bfdbfe;transition:all 0.15s;display:flex;align-items:center;gap:8px">
+            <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
+            Questions<span id="desktop-answered-badge" style="background:var(--blue);color:#fff;border-radius:99px;padding:1px 8px;font-size:11px;font-weight:700">0</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="mobile-qnav" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:20;background:var(--white);border-top:1px solid var(--border);padding:10px 12px;gap:8px;align-items:center;box-shadow:0 -2px 12px rgba(10,15,30,0.08)">
+    <button onclick="prevQuestion()" class="btn-ghost" style="padding:10px 12px;font-size:13px;display:flex;align-items:center;gap:4px;flex-shrink:0">
+      <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>Prev
+    </button>
+    <button onclick="toggleDrawer()" style="flex:1;background:var(--sky);border:1.5px solid #bfdbfe;border-radius:10px;padding:10px;font-size:13px;font-weight:600;color:var(--blue);font-family:'Outfit',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">
+      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
+      <span id="mobile-q-label">Q 1 / 10</span>
+      <span id="mobile-answered-badge" style="background:var(--blue);color:#fff;border-radius:99px;padding:1px 7px;font-size:11px;font-weight:700">0</span>
+    </button>
+    <button id="mobile-next-btn" onclick="nextQuestion()" class="btn-blue" style="padding:10px 12px;font-size:13px;display:flex;align-items:center;gap:4px;flex-shrink:0">
+      Next<svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+    </button>
+  </div>
+  <div id="drawer-overlay" onclick="toggleDrawer()"></div>
+  <div id="mobile-qnum-drawer">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div><p style="font-size:14px;font-weight:700;color:var(--ink)">Question Navigator</p><p style="font-size:12px;color:var(--muted);margin-top:1px">Tap any number to jump</p></div>
+      <button onclick="toggleDrawer()" style="background:none;border:none;cursor:pointer;color:var(--muted);padding:4px"><svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+    </div>
+    <div style="display:flex;gap:10px;margin-bottom:16px">
+      <div style="flex:1;background:#eef2ff;border:1.5px solid #bfdbfe;border-radius:10px;padding:10px 12px;text-align:center"><p id="drawer-answered-count" style="font-size:20px;font-weight:700;color:var(--blue);font-family:'Playfair Display',serif">0</p><p style="font-size:11px;color:var(--muted);margin-top:1px">Answered</p></div>
+      <div style="flex:1;background:#fef2f2;border:1.5px solid #fecaca;border-radius:10px;padding:10px 12px;text-align:center"><p id="drawer-unanswered-count" style="font-size:20px;font-weight:700;color:var(--red);font-family:'Playfair Display',serif">0</p><p style="font-size:11px;color:var(--muted);margin-top:1px">Unanswered</p></div>
+      <div style="flex:1;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;text-align:center"><p id="drawer-total-count" style="font-size:20px;font-weight:700;color:var(--muted);font-family:'Playfair Display',serif">0</p><p style="font-size:11px;color:var(--muted);margin-top:1px">Total</p></div>
+    </div>
+    <div id="mobile-qnum-grid" style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px"></div>
+    <div style="padding-top:14px;border-top:1px solid var(--border)">
+      <button onclick="hideDrawerAndSubmit()" style="width:100%;padding:13px;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:'Outfit',sans-serif;background:var(--red);color:#fff;border:none;display:flex;align-items:center;justify-content:center;gap:8px">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>Submit Exam
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- SUBMIT MODAL -->
+<div id="submit-modal" style="display:none;position:fixed;inset:0;background:rgba(10,15,30,0.45);z-index:50;align-items:center;justify-content:center;padding:20px">
+  <div class="card anim-up" style="padding:28px;max-width:380px;width:100%">
+    <h3 style="font-size:18px;font-weight:700;color:var(--ink);margin-bottom:6px">Submit Exam?</h3>
+    <p id="submit-modal-msg" style="font-size:14px;color:var(--muted);margin-bottom:20px">Are you sure?</p>
+    <div style="background:var(--bg);border-radius:10px;padding:12px 14px;margin-bottom:20px;display:flex;gap:20px">
+      <div style="text-align:center;flex:1"><p id="submit-answered" style="font-size:22px;font-weight:700;color:var(--blue);font-family:'Playfair Display',serif">0</p><p style="font-size:11px;color:var(--muted)">Answered</p></div>
+      <div style="width:1px;background:var(--border)"></div>
+      <div style="text-align:center;flex:1"><p id="submit-unanswered" style="font-size:22px;font-weight:700;color:var(--red);font-family:'Playfair Display',serif">0</p><p style="font-size:11px;color:var(--muted)">Unanswered</p></div>
+      <div style="width:1px;background:var(--border)"></div>
+      <div style="text-align:center;flex:1"><p id="submit-total" style="font-size:22px;font-weight:700;color:var(--muted);font-family:'Playfair Display',serif">0</p><p style="font-size:11px;color:var(--muted)">Total</p></div>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button onclick="hideSubmitModal()" class="btn-ghost" style="flex:1;padding:12px;font-size:14px">Continue</button>
+      <button onclick="confirmSubmit()" class="btn-blue" style="flex:1;padding:12px;font-size:14px">Submit</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS SCREEN -->
+<div id="results-screen" style="display:none;min-height:100vh;padding:40px 20px;overflow:auto">
+  <div style="max-width:740px;margin:0 auto">
+    <div class="card anim-up" style="padding:40px 32px;margin-bottom:20px;text-align:center">
+      <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;color:var(--muted);margin-bottom:6px">Session Complete</p>
+      <h1 class="display" id="result-course" style="font-size:26px;color:var(--ink);margin-bottom:28px">Subject Name</h1>
+      <div class="results-stats-row" style="display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap">
+        <div class="score-circle">
+          <svg width="130" height="130" viewBox="0 0 130 130">
+            <circle cx="65" cy="65" r="56" fill="none" stroke="#e2e8f4" stroke-width="10"></circle>
+            <circle id="score-ring" cx="65" cy="65" r="56" fill="none" stroke="var(--blue)" stroke-width="10" stroke-linecap="round" stroke-dasharray="351.9" stroke-dashoffset="351.9" style="transition:stroke-dashoffset 1.1s cubic-bezier(.4,0,.2,1)"></circle>
+          </svg>
+          <div class="inner"><p id="score-percent" class="display" style="font-size:28px;color:var(--ink);line-height:1">0%</p><p style="font-size:11px;color:var(--muted);margin-top:2px">Score</p></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:10px;background:#f0fdf4;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" fill="none" stroke="var(--green)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div><div><p id="correct-count" style="font-size:22px;font-weight:700;color:var(--green);font-family:'Playfair Display',serif">0</p><p style="font-size:12px;color:var(--muted)">Correct</p></div></div>
+          <div style="display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:10px;background:#fef2f2;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" fill="none" stroke="var(--red)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></div><div><p id="wrong-count" style="font-size:22px;font-weight:700;color:var(--red);font-family:'Playfair Display',serif">0</p><p style="font-size:12px;color:var(--muted)">Wrong</p></div></div>
+          <div style="display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:10px;background:var(--sky);display:flex;align-items:center;justify-content:center"><svg width="18" height="18" fill="none" stroke="var(--blue)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div><div><p id="time-taken" style="font-size:22px;font-weight:700;color:var(--blue);font-family:'Playfair Display',serif">0:00</p><p style="font-size:12px;color:var(--muted)">Time</p></div></div>
+        </div>
+      </div>
+      <div id="performance-msg" style="margin-top:24px;padding:14px 20px;border-radius:10px;background:var(--bg);font-size:14px;font-weight:500"></div>
+    </div>
+    <div class="card anim-up" style="padding:24px;margin-bottom:20px">
+      <button onclick="toggleReview()" style="width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:none;cursor:pointer;font-family:'Outfit',sans-serif">
+        <span style="font-size:15px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:8px"><svg width="16" height="16" fill="none" stroke="var(--blue)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>Review Answers</span>
+        <svg id="review-chevron" width="16" height="16" fill="none" stroke="var(--muted)" viewBox="0 0 24 24" style="transition:transform 0.2s"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+      </button>
+      <div id="review-container" style="display:none;margin-top:18px;flex-direction:column;gap:10px;max-height:380px;overflow:auto;padding-right:4px"></div>
+    </div>
+    <div style="display:flex;gap:12px" class="anim-up">
+      <button onclick="retryQuiz()" class="btn-blue" style="flex:1;padding:14px;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px"><svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>Try Again</button>
+      <button onclick="backToMenu()" class="btn-ghost" style="flex:1;padding:14px;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px"><svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>Main Menu</button>
+    </div>
+  </div>
+</div>
+
+<!-- DOWNLOAD SCREEN -->
+<div id="download-screen" style="display:none;min-height:100vh;padding:40px 20px;overflow:auto">
+  <div style="max-width:700px;margin:0 auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px" class="anim-up">
+      <div><p style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase">Manage Content</p><h1 class="display" style="font-size:24px;color:var(--ink)">Offline Downloads</h1></div>
+      <button onclick="backToMenu()" class="btn-ghost" style="padding:9px 16px;font-size:13px;display:flex;align-items:center;gap:6px"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>Back</button>
+    </div>
+    <div style="background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:12px;padding:12px 16px;margin-bottom:20px;font-size:13px;color:#1e40af" class="anim-up">Downloaded materials work <strong>offline</strong> and with poor internet connection.</div>
+    <div id="dl-accordion" style="display:flex;flex-direction:column;gap:10px" class="anim-up"></div>
+  </div>
+</div>
+
+<!-- HISTORY SCREEN -->
+<div id="history-screen" style="display:none;min-height:100vh;padding:40px 20px;overflow:auto">
+  <div style="max-width:700px;margin:0 auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px" class="anim-up">
+      <div><p style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase">Your Progress</p><h1 class="display" style="font-size:24px;color:var(--ink)">Performance History</h1></div>
+      <button onclick="backToMenu()" class="btn-ghost" style="padding:9px 16px;font-size:13px;display:flex;align-items:center;gap:6px"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>Back</button>
+    </div>
+    <div class="hist-stats-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px">
+      <div class="card-flat" style="padding:18px;text-align:center"><p id="total-quizzes" class="display" style="font-size:28px;color:var(--blue)">0</p><p style="font-size:12px;color:var(--muted);margin-top:2px">Total Sessions</p></div>
+      <div class="card-flat" style="padding:18px;text-align:center"><p id="avg-score" class="display" style="font-size:28px;color:var(--green)">0%</p><p style="font-size:12px;color:var(--muted);margin-top:2px">Average Score</p></div>
+      <div class="card-flat" style="padding:18px;text-align:center"><p id="best-score" class="display" style="font-size:28px;color:var(--gold)">0%</p><p style="font-size:12px;color:var(--muted);margin-top:2px">Best Score</p></div>
+    </div>
+    <div id="history-list" style="display:flex;flex-direction:column;gap:10px" class="anim-up"></div>
+    <button id="clear-history-btn" onclick="showClearConfirm()" style="display:none;width:100%;margin-top:24px;padding:12px;border-radius:10px;font-size:13px;font-weight:600;font-family:'Outfit',sans-serif;cursor:pointer;background:#fef2f2;color:var(--red);border:1.5px solid #fecaca">Clear All History</button>
+  </div>
+</div>
+
+<!-- FAVOURITES SCREEN -->
+<div id="favorites-screen" style="display:none;min-height:100vh;padding:40px 20px;overflow:auto">
+  <div style="max-width:700px;margin:0 auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px" class="anim-up">
+      <div><p style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase">Saved Questions</p><h1 class="display" style="font-size:24px;color:var(--ink)">Favourites</h1></div>
+      <div style="display:flex;gap:10px">
+        <button id="clear-favs-btn" onclick="showClearFavsConfirm()" style="display:none;padding:9px 14px;font-size:13px;font-weight:600;border-radius:10px;cursor:pointer;font-family:'Outfit',sans-serif;background:#fffbeb;color:#d97706;border:1.5px solid #fde68a">Clear All</button>
+        <button onclick="backToMenu()" class="btn-ghost" style="padding:9px 16px;font-size:13px;display:flex;align-items:center;gap:6px"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>Back</button>
+      </div>
+    </div>
+    <div id="favorites-count-bar" style="display:none;background:#fffbeb;border:1.5px solid #fde68a;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:13px;color:#92400e;align-items:center;gap:8px" class="anim-up">
+      <span id="favorites-count-text">0 saved questions</span>
+    </div>
+    <div id="favorites-list" style="display:flex;flex-direction:column;gap:12px" class="anim-up"></div>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div id="exit-modal" style="display:none;position:fixed;inset:0;background:rgba(10,15,30,0.45);z-index:50;align-items:center;justify-content:center;padding:20px">
+  <div class="card anim-up" style="padding:28px;max-width:360px;width:100%">
+    <h3 style="font-size:18px;font-weight:700;color:var(--ink);margin-bottom:8px">Exit Session?</h3>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:24px">Your progress will not be saved.</p>
+    <div style="display:flex;gap:10px">
+      <button onclick="hideExitModal()" class="btn-ghost" style="flex:1;padding:12px;font-size:14px">Stay</button>
+      <button onclick="exitQuiz()" style="flex:1;padding:12px;font-size:14px;font-weight:600;background:var(--red);color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:'Outfit',sans-serif">Exit</button>
+    </div>
+  </div>
+</div>
+<div id="clear-modal" style="display:none;position:fixed;inset:0;background:rgba(10,15,30,0.45);z-index:50;align-items:center;justify-content:center;padding:20px">
+  <div class="card anim-up" style="padding:28px;max-width:360px;width:100%">
+    <h3 style="font-size:18px;font-weight:700;color:var(--ink);margin-bottom:8px">Clear History?</h3>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:24px">This permanently deletes all performance records.</p>
+    <div style="display:flex;gap:10px">
+      <button onclick="hideClearModal()" class="btn-ghost" style="flex:1;padding:12px;font-size:14px">Cancel</button>
+      <button onclick="clearHistory()" style="flex:1;padding:12px;font-size:14px;font-weight:600;background:var(--red);color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:'Outfit',sans-serif">Clear All</button>
+    </div>
+  </div>
+</div>
+<div id="clear-favs-modal" style="display:none;position:fixed;inset:0;background:rgba(10,15,30,0.45);z-index:50;align-items:center;justify-content:center;padding:20px">
+  <div class="card anim-up" style="padding:28px;max-width:360px;width:100%">
+    <h3 style="font-size:18px;font-weight:700;color:var(--ink);margin-bottom:8px">Clear All Favourites?</h3>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:24px">This permanently removes all saved questions.</p>
+    <div style="display:flex;gap:10px">
+      <button onclick="hideClearFavsModal()" class="btn-ghost" style="flex:1;padding:12px;font-size:14px">Cancel</button>
+      <button onclick="clearAllFavorites()" style="flex:1;padding:12px;font-size:14px;font-weight:600;background:#d97706;color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:'Outfit',sans-serif">Clear All</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="hidden-toast" style="position:fixed;bottom:20px;right:20px;z-index:100;max-width:320px">
+  <div style="background:var(--ink);color:#fff;border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 24px rgba(10,15,30,0.2)">
+    <div id="toast-icon" style="width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0"></div>
+    <p id="toast-message" style="font-size:13px;font-weight:500"></p>
+  </div>
+</div>
+
+</div><!-- /#app -->
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   CONFIG
+═══════════════════════════════════════════════════════ */
+const SHEETS_URL  = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTJkKY58ZYjTV59LYbh1y0paJotk8sf1xeIe4I1r57OyO_nXBzITCW77j_I9tBjywOXEPOKjRSJULVZ/pub?gid=358909658&single=true&output=csv';
+const GUEST_LIMIT = 10;
+const ACCESS_KEY  = 'NMCN_user';
+const ACCESS_KW   = 'NMC';
+const DB_NAME     = 'nmcn_cbt_db', DB_VER = 2;
+const ST_PERF = 'performance', ST_DATA = 'storage', ST_FAV = 'favorites';
+const DATA_EXP    = 31  * 86400000;
+const OFFLINE_EXP = 365 * 86400000;
+
+/* ═══════════════════════════════════════════════════════
+   ACCESS CONTROL
+═══════════════════════════════════════════════════════ */
+function _parseUser() {
+  try {
+    const raw = localStorage.getItem(ACCESS_KEY) || '';
+    if (!raw) return null;
+    const obj = JSON.parse(raw);
+    return (obj && typeof obj === 'object') ? obj : null;
+  } catch(e) { return null; }
+}
+function checkAccess() {
+  try {
+    const user = _parseUser();
+    if (!user) return false;
+    // NMC access stored in keyword1 (Column D of Google Sheet)
+    return !!(user.keyword1 && user.keyword1.trim());
+  } catch(e) { return false; }
+}
+function getUserName() {
+  try {
+    const user = _parseUser();
+    if (user && user.name && user.name.trim()) return user.name.trim().slice(0, 28);
+    return 'User';
+  } catch(e) { return 'User'; }
+}
+function renderAccessBadges() {
+  const full = checkAccess();
+  const ab = document.getElementById('access-badge');
+  const qb = document.getElementById('quiz-access-badge');
+  const gn = document.getElementById('guest-notice');
+  const wm = document.getElementById('welcome-msg');
+  if (full) {
+    const n = getUserName();
+    if(ab) ab.innerHTML=`<span style="background:#f0fdf4;border:1.5px solid #bbf7d0;color:var(--green);border-radius:99px;padding:4px 12px;font-size:11px;font-weight:700">&#10003; ${n}</span>`;
+    if(qb) qb.innerHTML=`<span style="background:#f0fdf4;border:1.5px solid #bbf7d0;color:var(--green);border-radius:99px;padding:3px 9px;font-size:11px;font-weight:700">&#10003; ${n}</span>`;
+    if(gn) gn.style.display='none';
+    if(wm) wm.textContent=`Welcome back, ${n}. Select a course to begin your session.`;
+  } else {
+    if(ab) ab.innerHTML=`<span style="background:#fffbeb;border:1.5px solid #fde68a;color:#b45309;border-radius:99px;padding:4px 12px;font-size:11px;font-weight:700">Guest &middot; 10 Qs</span>`;
+    if(qb) qb.innerHTML=`<span style="background:#fffbeb;border:1.5px solid #fde68a;color:#b45309;border-radius:99px;padding:3px 9px;font-size:11px;font-weight:700">Guest</span>`;
+    if(gn) gn.style.display='block';
+    if(wm) wm.textContent='Select a course and material to begin your session.';
+  }
+  renderShuffleState();
+}
+
+function renderShuffleState() {
+  const guest = !checkAccess();
+  const sqChk = document.getElementById('shuffle-checkbox');
+  const soChk = document.getElementById('shuffle-options-checkbox');
+  const sqLbl = document.getElementById('shuffle-q-label');
+  const soLbl = document.getElementById('shuffle-o-label');
+  const msg   = document.getElementById('shuffle-guest-msg');
+  if (!sqChk) return;
+  if (guest) {
+    sqChk.checked = false;
+    sqChk.disabled = true;
+    soChk.checked = false;
+    soChk.disabled = true;
+    if (sqLbl) sqLbl.style.opacity = '0.4';
+    if (soLbl) soLbl.style.opacity = '0.4';
+    if (msg)   msg.style.display   = 'block';
+  } else {
+    sqChk.disabled = false;
+    soChk.disabled = false;
+    if (sqLbl) sqLbl.style.opacity = '1';
+    if (soLbl) soLbl.style.opacity = '1';
+    if (msg)   msg.style.display   = 'none';
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════════ */
+let courses=[], currentQuestions=[], currentQuestionIndex=0;
+let userAnswers=[], currentMode='study', currentCourse=null;
+let timerInterval=null, timeElapsed=0, isOffline=false;
+let selectedCourseIdx=null, reviewOpen=false;
+
+/* ═══════════════════════════════════════════════════════
+   INDEXEDDB
+═══════════════════════════════════════════════════════ */
+function openDB() {
+  return new Promise((res,rej)=>{
+    const guard=setTimeout(()=>rej(new Error('IDB timeout')),5000);
+    try {
+      const r=indexedDB.open(DB_NAME,DB_VER);
+      r.onerror=()=>{clearTimeout(guard);rej(r.error);};
+      r.onsuccess=()=>{clearTimeout(guard);res(r.result);};
+      r.onupgradeneeded=e=>{
+        const db=e.target.result;
+        if(!db.objectStoreNames.contains(ST_PERF)){const s=db.createObjectStore(ST_PERF,{keyPath:'id',autoIncrement:true});s.createIndex('date','date',{unique:false});}
+        if(!db.objectStoreNames.contains(ST_DATA)) db.createObjectStore(ST_DATA,{keyPath:'key'});
+        if(!db.objectStoreNames.contains(ST_FAV))  db.createObjectStore(ST_FAV,{keyPath:'id',autoIncrement:true});
+      };
+    } catch(e){clearTimeout(guard);rej(e);}
+  });
+}
+async function savePerf(data){const db=await openDB();const t=db.transaction(ST_PERF,'readwrite');t.objectStore(ST_PERF).add({...data,date:new Date().toISOString(),expiry:Date.now()+DATA_EXP});return new Promise((res,rej)=>{t.oncomplete=res;t.onerror=()=>rej(t.error);});}
+async function getPerf(){const db=await openDB();const t=db.transaction(ST_PERF,'readonly');return new Promise((res,rej)=>{const r=t.objectStore(ST_PERF).getAll();r.onsuccess=()=>res(r.result.filter(x=>x.expiry>Date.now()).sort((a,b)=>new Date(b.date)-new Date(a.date)));r.onerror=()=>rej(r.error);});}
+async function clearPerf(){const db=await openDB();const t=db.transaction(ST_PERF,'readwrite');t.objectStore(ST_PERF).clear();return new Promise((res,rej)=>{t.oncomplete=res;t.onerror=()=>rej(t.error);});}
+async function storeData(key,data){try{const db=await openDB();const t=db.transaction(ST_DATA,'readwrite');t.objectStore(ST_DATA).put({key,data,timestamp:Date.now()});await new Promise((res,rej)=>{t.oncomplete=res;t.onerror=()=>rej(t.error);});}catch(e){}}
+async function getData(key){try{const db=await openDB();const t=db.transaction(ST_DATA,'readonly');return await new Promise((res,rej)=>{const r=t.objectStore(ST_DATA).get(key);r.onsuccess=()=>{const x=r.result;res(x&&Date.now()-x.timestamp<DATA_EXP?x.data:null);};r.onerror=()=>rej(r.error);});}catch(e){return null;}}
+async function saveFavorite(q,cn){const db=await openDB();const t=db.transaction(ST_FAV,'readwrite');t.objectStore(ST_FAV).add({question:q,courseName:cn,savedAt:Date.now()});return new Promise((res,rej)=>{t.oncomplete=res;t.onerror=()=>rej(t.error);});}
+async function getFavorites(){const db=await openDB();const t=db.transaction(ST_FAV,'readonly');return new Promise((res,rej)=>{const r=t.objectStore(ST_FAV).getAll();r.onsuccess=()=>res(r.result.sort((a,b)=>b.savedAt-a.savedAt));r.onerror=()=>rej(r.error);});}
+async function deleteFavorite(id){const db=await openDB();const t=db.transaction(ST_FAV,'readwrite');t.objectStore(ST_FAV).delete(id);return new Promise((res,rej)=>{t.oncomplete=res;t.onerror=()=>rej(t.error);});}
+async function isFavorited(qText,cn){const f=await getFavorites();return f.find(x=>x.question.question===qText&&x.courseName===cn)||null;}
+async function saveOffline(title,link,questions){await storeData(`off_${title}`,{title,link,questions,questionCount:questions.length,downloadDate:Date.now(),expiry:Date.now()+OFFLINE_EXP});}
+async function getOfflineCourse(title){const d=await getData(`off_${title}`);return d&&d.expiry>Date.now()?d:null;}
+async function getDownloaded(){try{const db=await openDB();const t=db.transaction(ST_DATA,'readonly');return await new Promise((res,rej)=>{const r=t.objectStore(ST_DATA).getAll();r.onsuccess=()=>res(r.result.filter(i=>i.key.startsWith('off_')).map(i=>i.data).filter(d=>d&&d.expiry>Date.now()));r.onerror=()=>rej(r.error);});}catch(e){return[];}}
+async function deleteOffline(title){try{const db=await openDB();const t=db.transaction(ST_DATA,'readwrite');t.objectStore(ST_DATA).delete(`off_${title}`);await new Promise((res,rej)=>{t.oncomplete=res;t.onerror=()=>rej(t.error);});}catch(e){}}
+
+/* ═══════════════════════════════════════════════════════
+   CSV FETCH — Blogger-compatible via script tag injection
+   Tries JSONP-style Google Visualization API first (no CORS),
+   then falls back to fetch via proxies.
+═══════════════════════════════════════════════════════ */
+function fetchCSVviaScriptTag(url) {
+  return new Promise((resolve, reject) => {
+    // Convert pub?output=csv to gviz/tq which supports JSONP
+    let gvizUrl = url
+      .replace('/pub?', '/gviz/tq?tqx=out:csv&')
+      .replace('&output=csv','')
+      .replace('output=csv','');
+    // Ensure no trailing &
+    gvizUrl = gvizUrl.replace(/&$/, '');
+    const cbName = '_nmcnCb_' + Date.now();
+    const timeout = setTimeout(() => {
+      delete window[cbName];
+      if (script.parentNode) script.parentNode.removeChild(script);
+      reject(new Error('Script tag timeout'));
+    }, 10000);
+    // gviz returns JSON — use tqx=out:csv for plain CSV via script is not ideal,
+    // so we use the raw CSV approach with XHR no-cors trick instead
+    clearTimeout(timeout);
+    // Actually use XMLHttpRequest with mode that works on Blogger
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.onload = () => {
+      if (xhr.status === 200 && xhr.responseText && xhr.responseText.trim().length > 10) {
+        resolve(xhr.responseText);
+      } else {
+        reject(new Error('XHR failed: ' + xhr.status));
+      }
+    };
+    xhr.onerror = () => reject(new Error('XHR error'));
+    xhr.ontimeout = () => reject(new Error('XHR timeout'));
+    xhr.timeout = 10000;
+    xhr.send();
+    var script; // declared for cleanup reference above
+  });
+}
+
+async function fetchCSV(url) {
+  // Strategy 1: direct XHR (works on same-origin / permissive environments)
+  try {
+    const text = await fetchCSVviaScriptTag(url);
+    if (text) return text;
+  } catch(e) { console.warn('[NMCN] Direct XHR failed:', e.message); }
+
+  // Strategy 2: Google Visualization API (JSONP-based, no CORS, works on Blogger)
+  try {
+    const text = await fetchViaGviz(url);
+    if (text) return text;
+  } catch(e) { console.warn('[NMCN] Gviz failed:', e.message); }
+
+  // Strategy 3: allorigins proxy
+  try {
+    const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url), {cache:'no-store'});
+    if (r.ok) { const t = await r.text(); if (t && t.trim().length > 10) return t; }
+  } catch(e) { console.warn('[NMCN] allorigins failed:', e.message); }
+
+  // Strategy 4: corsproxy.io
+  try {
+    const r = await fetch('https://corsproxy.io/?' + encodeURIComponent(url), {cache:'no-store'});
+    if (r.ok) { const t = await r.text(); if (t && t.trim().length > 10) return t; }
+  } catch(e) { console.warn('[NMCN] corsproxy failed:', e.message); }
+
+  return null;
+}
+
+// Google Visualization API — returns CSV via JSONP, works cross-origin on Blogger
+function fetchViaGviz(csvUrl) {
+  return new Promise((resolve, reject) => {
+    // Extract spreadsheet ID and gid from the published CSV URL
+    const idMatch = csvUrl.match(/\/e\/([^/]+)\/pub/);
+    const gidMatch = csvUrl.match(/gid=(\d+)/);
+    if (!idMatch) { reject(new Error('Cannot extract sheet ID')); return; }
+    const sheetId = idMatch[1];
+    const gid = gidMatch ? gidMatch[1] : '0';
+    const cbName = '_gvizCb_' + Date.now() + '_' + Math.floor(Math.random()*9999);
+    const timeout = setTimeout(() => {
+      delete window[cbName];
+      const s = document.getElementById(cbName);
+      if (s) s.parentNode.removeChild(s);
+      reject(new Error('Gviz timeout'));
+    }, 10000);
+    window[cbName] = function(data) {
+      clearTimeout(timeout);
+      delete window[cbName];
+      const s = document.getElementById(cbName);
+      if (s) s.parentNode.removeChild(s);
+      try {
+        // data.table.rows contains the data
+        const rows = data.table.rows;
+        const cols = data.table.cols;
+        if (!rows || !rows.length) { reject(new Error('No rows')); return; }
+        // Build CSV string from gviz response
+        const lines = rows.map(row =>
+          cols.map((_,ci) => {
+            const cell = row.c && row.c[ci];
+            const val = cell ? (cell.v !== null && cell.v !== undefined ? String(cell.v) : '') : '';
+            return val.includes(',') || val.includes('"') ? '"' + val.replace(/"/g,'""') + '"' : val;
+          }).join(',')
+        );
+        resolve(lines.join('\n'));
+      } catch(e) { reject(e); }
+    };
+    const gvizUrl = `https://docs.google.com/spreadsheets/d/e/${sheetId}/gviz/tq?tqx=out:json&tq=select+*&gid=${gid}&jsonp=${cbName}`;
+    const script = document.createElement('script');
+    script.id = cbName;
+    script.src = gvizUrl;
+    script.onerror = () => { clearTimeout(timeout); delete window[cbName]; reject(new Error('Script load error')); };
+    document.head.appendChild(script);
+  });
+}
+
+function parseCSV(line) {
+  const vals=[]; let cur='',inQ=false;
+  for(const c of line){ if(c==='"') inQ=!inQ; else if(c===','&&!inQ){vals.push(cur.trim());cur='';} else if(c!=='\r') cur+=c; }
+  vals.push(cur.trim()); return vals;
+}
+function csvToRows(text) {
+  return text.split('\n').slice(1).map(l=>parseCSV(l));
+}
+async function fetchMain() {
+  const csv = await fetchCSV(SHEETS_URL);
+  if (!csv) throw new Error('Failed to load course list');
+  return csvToRows(csv).filter(v=>v.length>=2&&v[0]&&v[1]).map(v=>({
+    title: v[0].trim(), link: v[1].trim(), category: (v[2]||'').trim()||'General'
+  }));
+}
+async function fetchQs(url) {
+  url = url.trim();
+  if(url.includes('/edit')) url=url.replace('/edit','/pub?output=csv');
+  if(!url.includes('output=csv')) url+=(url.includes('?')?'&':'?')+'output=csv';
+  const csv = await fetchCSV(url);
+  if (!csv) throw new Error('Failed to load questions for: ' + url);
+  return csvToRows(csv).filter(v=>v.length>=6&&v[0]&&v[1]&&v[5]).map(v=>({
+    question:v[0], options:{A:v[1],B:v[2]||'',C:v[3]||'',D:v[4]||''},
+    answer:v[5].trim().toUpperCase().charAt(0), explanation:v[6]||'No explanation provided.'
+  }));
+}
+
+/* ═══════════════════════════════════════════════════════
+   UI HELPERS
+═══════════════════════════════════════════════════════ */
+const SCREENS=['loading-screen','main-menu','quiz-screen','results-screen','history-screen','download-screen','favorites-screen'];
+function showScreen(id){
+  SCREENS.forEach(s=>{const el=document.getElementById(s);if(el)el.style.display='none';});
+  ['exit-modal','clear-modal','submit-modal'].forEach(m=>{const el=document.getElementById(m);if(el)el.style.display='none';});
+  if(id!=='quiz-screen'){
+    const mq=document.getElementById('mobile-qnav');
+    const dr=document.getElementById('mobile-qnum-drawer');
+    const ov=document.getElementById('drawer-overlay');
+    if(mq)mq.style.display='none';
+    if(dr)dr.classList.remove('open');
+    if(ov)ov.classList.remove('open');
+  }
+  const t=document.getElementById(id);if(t)t.style.display='block';
+  renderAccessBadges();
+}
+function showToast(msg,type='success'){
+  const t=document.getElementById('toast'),ico=document.getElementById('toast-icon');
+  document.getElementById('toast-message').textContent=msg;
+  if(type==='error'){ico.style.background='rgba(220,38,38,0.2)';ico.innerHTML='<svg width="13" height="13" fill="none" stroke="#f87171" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';}
+  else{ico.style.background='rgba(21,73,214,0.2)';ico.innerHTML='<svg width="13" height="13" fill="none" stroke="#93c5fd" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';}
+  t.classList.remove('hidden-toast');t.classList.add('visible');
+  setTimeout(()=>{t.classList.add('hidden-toast');t.classList.remove('visible');},3000);
+}
+
+/* ═══════════════════════════════════════════════════════
+   MENU — two-step category → material selection
+═══════════════════════════════════════════════════════ */
+function buildGroups(){
+  const g={};
+  courses.forEach((c,i)=>{const cat=(c.category||'General').trim();if(!g[cat])g[cat]=[];g[cat].push({...c,idx:i});});
+  return g;
+}
+function renderCourseList(){
+  const sel=document.getElementById('category-select');if(!sel)return;
+  if(!courses.length){sel.innerHTML='<option value="">No materials found</option>';return;}
+  const g=buildGroups();
+  sel.innerHTML='<option value="">Choose a course…</option>'+Object.keys(g).sort().map(cat=>`<option value="${cat}">${cat} (${g[cat].length})</option>`).join('');
+  document.getElementById('material-select-wrap').style.display='none';
+  document.getElementById('material-select').innerHTML='<option value="">Choose a material…</option>';
+  const pill=document.getElementById('selected-course-pill');if(pill)pill.style.display='none';
+  selectedCourseIdx=null;
+  document.getElementById('start-btn').disabled=true;
+}
+function onCategoryChange(){
+  const cat=document.getElementById('category-select').value;
+  const matWrap=document.getElementById('material-select-wrap');
+  const matSel=document.getElementById('material-select');
+  const pill=document.getElementById('selected-course-pill');
+  selectedCourseIdx=null;if(pill)pill.style.display='none';
+  document.getElementById('start-btn').disabled=true;
+  if(!cat){matWrap.style.display='none';return;}
+  const items=buildGroups()[cat]||[];
+  matSel.innerHTML='<option value="">Choose a material…</option>'+items.map(c=>`<option value="${c.idx}">${c.title}</option>`).join('');
+  matWrap.style.display='block';
+}
+function onMaterialChange(){
+  const matSel=document.getElementById('material-select');
+  const pill=document.getElementById('selected-course-pill');
+  const name=document.getElementById('selected-course-name');
+  const idx=parseInt(matSel.value);
+  if(isNaN(idx)||matSel.value===''){selectedCourseIdx=null;if(pill)pill.style.display='none';document.getElementById('start-btn').disabled=true;return;}
+  selectedCourseIdx=idx;
+  if(pill&&name){
+    const guest=!checkAccess();
+    name.innerHTML=courses[idx].title+(guest?` <span style="margin-left:6px;font-size:11px;font-weight:700;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:99px;padding:2px 8px">Preview · ${GUEST_LIMIT} Qs</span>`:'');
+    pill.style.display='block';
+  }
+  document.getElementById('start-btn').disabled=false;
+}
+function startQuizFromSelection(){if(selectedCourseIdx!==null)startQuiz(selectedCourseIdx);}
+
+/* ═══════════════════════════════════════════════════════
+   QUIZ ENGINE
+═══════════════════════════════════════════════════════ */
+function shuffleArr(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function shuffleOpts(opts,ans){
+  const lbls=['A','B','C','D'].filter(l=>opts[l]);
+  const vals=shuffleArr(lbls.map(l=>opts[l]));
+  const o={};lbls.forEach((l,i)=>o[l]=vals[i]);
+  return{options:o,answer:lbls.find(l=>o[l]===opts[ans])};
+}
+async function startQuiz(idx){
+  currentCourse=courses[idx];currentMode=document.getElementById('mode-select').value;
+  const isGuest = !checkAccess();
+  const doSQ = isGuest ? false : document.getElementById('shuffle-checkbox').checked;
+  const doSO = isGuest ? false : document.getElementById('shuffle-options-checkbox').checked;
+  document.getElementById('loading-msg').textContent='Loading questions...';
+  showScreen('loading-screen');
+  try {
+    let qs=null;
+    const off=await getOfflineCourse(currentCourse.title);
+    if(off&&off.questions)qs=off.questions;
+    else{
+      qs=await getData(`qs_${currentCourse.title}`);
+      if(!qs){
+        if(isOffline){showToast('Not available offline.','error');showScreen('main-menu');return;}
+        qs=await fetchQs(currentCourse.link);
+        if(qs&&qs.length) storeData(`qs_${currentCourse.title}`,qs);
+      }
+    }
+    if(!qs||!qs.length){showToast('No questions found.','error');showScreen('main-menu');return;}
+    let pool=doSQ?shuffleArr([...qs]):[...qs];
+    if(!checkAccess()&&pool.length>GUEST_LIMIT) pool=pool.slice(0,GUEST_LIMIT);
+    currentQuestions=pool.map(q=>doSO?{...q,...shuffleOpts(q.options,q.answer)}:{...q});
+    currentQuestionIndex=0;userAnswers=new Array(currentQuestions.length).fill(null);timeElapsed=0;
+    document.getElementById('quiz-title').textContent=currentCourse.title;
+    const badge=document.getElementById('mode-badge');
+    badge.textContent=currentMode==='study'?'Study':'Exam';
+    badge.className='badge '+(currentMode==='study'?'badge-study':'badge-exam');
+    if(currentMode==='exam')startTimer();else document.getElementById('timer-display').textContent='\u221e';
+    buildQnumGrid();renderQuestion();showScreen('quiz-screen');
+    if(!checkAccess()&&qs.length>GUEST_LIMIT) showToast(`Preview: showing ${GUEST_LIMIT} of ${qs.length} questions`);
+    const mq=document.getElementById('mobile-qnav');if(mq)mq.style.display=window.innerWidth<=700?'flex':'none';
+  } catch(e){console.error('[NMCN] startQuiz error:',e);showToast('Failed to load questions. Check connection.','error');showScreen('main-menu');}
+}
+function startTimer(){
+  if(timerInterval)clearInterval(timerInterval);
+  timerInterval=setInterval(()=>{timeElapsed++;const m=Math.floor(timeElapsed/60),s=timeElapsed%60;document.getElementById('timer-display').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;},1000);
+}
+function stopTimer(){if(timerInterval){clearInterval(timerInterval);timerInterval=null;}}
+function buildQnumGrid(){
+  const g=document.getElementById('qnum-grid');if(!g)return;
+  g.innerHTML=currentQuestions.map((_,i)=>`<button onclick="jumpTo(${i})" id="qb_${i}">${i+1}</button>`).join('');
+  buildMobileQnumGrid();updateQnumGrid();
+}
+function updateQnumGrid(){
+  currentQuestions.forEach((_,i)=>{const b=document.getElementById(`qb_${i}`);if(!b)return;b.className='';if(i===currentQuestionIndex)b.className='current';else if(userAnswers[i]!==null)b.className='answered';});
+  updateMobileQnumGrid();
+  const lbl=document.getElementById('mobile-q-label');if(lbl)lbl.textContent=`Q ${currentQuestionIndex+1} / ${currentQuestions.length}`;
+  const ans=userAnswers.filter(a=>a!==null).length;
+  const db2=document.getElementById('desktop-answered-badge');if(db2)db2.textContent=ans;
+  const mb2=document.getElementById('mobile-answered-badge');if(mb2)mb2.textContent=ans;
+  const drawer=document.getElementById('mobile-qnum-drawer');if(drawer&&drawer.classList.contains('open'))updateDrawerStats();
+}
+function toggleDrawer(){
+  const d=document.getElementById('mobile-qnum-drawer'),o=document.getElementById('drawer-overlay');
+  const open=d.classList.contains('open');
+  if(open){d.classList.remove('open');o.classList.remove('open');}
+  else{buildMobileQnumGrid();updateDrawerStats();d.classList.add('open');o.classList.add('open');}
+}
+function buildMobileQnumGrid(){const g=document.getElementById('mobile-qnum-grid');if(!g)return;g.innerHTML=currentQuestions.map((_,i)=>`<button onclick="jumpTo(${i});toggleDrawer();" id="mqb_${i}">${i+1}</button>`).join('');updateMobileQnumGrid();}
+function updateMobileQnumGrid(){currentQuestions.forEach((_,i)=>{const b=document.getElementById(`mqb_${i}`);if(!b)return;b.className='';if(i===currentQuestionIndex)b.className='current';else if(userAnswers[i]!==null)b.className='answered';});}
+function updateDrawerStats(){const ans=userAnswers.filter(a=>a!==null).length,tot=currentQuestions.length;const dc=document.getElementById('drawer-answered-count');const du=document.getElementById('drawer-unanswered-count');const dt=document.getElementById('drawer-total-count');if(dc)dc.textContent=ans;if(du)du.textContent=tot-ans;if(dt)dt.textContent=tot;}
+function hideDrawerAndSubmit(){const d=document.getElementById('mobile-qnum-drawer'),o=document.getElementById('drawer-overlay');d.classList.remove('open');o.classList.remove('open');setTimeout(()=>showSubmitModal(),200);}
+function renderQuestion(){
+  const q=currentQuestions[currentQuestionIndex];
+  document.getElementById('q-label').textContent=`Q${currentQuestionIndex+1}`;
+  document.getElementById('question-text').textContent=q.question;
+  document.getElementById('question-counter').textContent=`${currentQuestionIndex+1} / ${currentQuestions.length}`;
+  document.getElementById('progress-bar').style.width=`${((currentQuestionIndex+1)/currentQuestions.length)*100}%`;
+  const opts=['A','B','C','D'].filter(l=>q.options[l]);
+  document.getElementById('options-container').innerHTML=opts.map(l=>`
+    <button class="opt${userAnswers[currentQuestionIndex]===l?' selected':''}" onclick="selectAnswer('${l}')" id="opt_${l}">
+      <span class="opt-label">${l}</span>
+      <span style="font-size:14px;line-height:1.5;color:var(--ink)">${q.options[l]}</span>
+    </button>`).join('');
+  document.getElementById('explanation-box').style.display='none';
+  if(currentMode==='study'&&userAnswers[currentQuestionIndex]!==null)showExplanation(q);
+  document.getElementById('prev-btn').disabled=currentQuestionIndex===0;
+  const isLast=currentQuestionIndex===currentQuestions.length-1;
+  const nb=document.getElementById('next-btn');const mnb=document.getElementById('mobile-next-btn');
+  if(isLast){nb.textContent='Submit';nb.onclick=showSubmitModal;if(mnb){mnb.textContent='Submit';mnb.onclick=showSubmitModal;}}
+  else{
+    nb.innerHTML='Next <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>';nb.onclick=nextQuestion;
+    if(mnb){mnb.innerHTML='Next <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>';mnb.onclick=nextQuestion;}
+  }
+  updateQnumGrid();
+  const qc=document.getElementById('question-container');qc.classList.remove('anim-in');void qc.offsetWidth;qc.classList.add('anim-in');
+  refreshFavBtn();
+}
+function showExplanation(q){
+  const sel=userAnswers[currentQuestionIndex];
+  ['A','B','C','D'].filter(l=>q.options[l]).forEach(l=>{const b=document.getElementById(`opt_${l}`);if(!b)return;b.classList.remove('selected','correct','wrong');b.disabled=true;if(l===q.answer)b.classList.add('correct');else if(l===sel)b.classList.add('wrong');});
+  document.getElementById('explanation-text').textContent=q.explanation;
+  document.getElementById('explanation-box').style.display='block';
+}
+function selectAnswer(letter){
+  if(currentMode==='study'&&userAnswers[currentQuestionIndex]!==null)return;
+  userAnswers[currentQuestionIndex]=letter;
+  if(currentMode==='study')showExplanation(currentQuestions[currentQuestionIndex]);
+  else{document.querySelectorAll('.opt').forEach(b=>b.classList.remove('selected'));const b=document.getElementById(`opt_${letter}`);if(b)b.classList.add('selected');}
+  updateQnumGrid();
+}
+function nextQuestion(){if(currentQuestionIndex<currentQuestions.length-1){currentQuestionIndex++;renderQuestion();}}
+function prevQuestion(){if(currentQuestionIndex>0){currentQuestionIndex--;renderQuestion();}}
+function jumpTo(i){currentQuestionIndex=i;renderQuestion();}
+function confirmExit(){document.getElementById('exit-modal').style.display='flex';}
+function hideExitModal(){document.getElementById('exit-modal').style.display='none';}
+function exitQuiz(){stopTimer();hideExitModal();showScreen('main-menu');}
+function showSubmitModal(){
+  const ans=userAnswers.filter(a=>a!==null).length,tot=currentQuestions.length,una=tot-ans;
+  document.getElementById('submit-answered').textContent=ans;document.getElementById('submit-unanswered').textContent=una;document.getElementById('submit-total').textContent=tot;
+  document.getElementById('submit-modal-msg').innerHTML=`Answered <strong>${ans}</strong> of <strong>${tot}</strong>.`+(una>0?` <strong style="color:var(--red)">${una} unanswered</strong>.`:'');
+  document.getElementById('submit-modal').style.display='flex';
+}
+function hideSubmitModal(){document.getElementById('submit-modal').style.display='none';}
+function confirmSubmit(){hideSubmitModal();finishQuiz();}
+async function finishQuiz(){
+  stopTimer();
+  const correct=userAnswers.filter((a,i)=>a===currentQuestions[i].answer).length;
+  const wrong=userAnswers.filter((a,i)=>a!==null&&a!==currentQuestions[i].answer).length;
+  const total=currentQuestions.length;const score=Math.round((correct/total)*100);
+  const m=Math.floor(timeElapsed/60),s=timeElapsed%60;const timeStr=`${m}:${String(s).padStart(2,'0')}`;
+  try{await savePerf({course:currentCourse.title,score,correct,wrong,total,time:timeStr,mode:currentMode});}catch(e){}
+  document.getElementById('result-course').textContent=currentCourse.title;
+  document.getElementById('score-percent').textContent=`${score}%`;
+  document.getElementById('correct-count').textContent=correct;
+  document.getElementById('wrong-count').textContent=wrong;
+  document.getElementById('time-taken').textContent=timeStr;
+  const ring=document.getElementById('score-ring');const circ=351.9;
+  setTimeout(()=>{ring.style.strokeDashoffset=circ-(circ*(score/100));ring.style.stroke=score>=70?'var(--green)':score>=50?'var(--gold)':'var(--red)';},100);
+  const pm=document.getElementById('performance-msg');
+  const _un=getUserName();
+  if(score>=80){pm.style.background='#f0fdf4';pm.style.color='var(--green)';pm.textContent='Excellent, '+_un+'! Outstanding performance.';}
+  else if(score>=70){pm.style.background='#f0fdf4';pm.style.color='var(--green)';pm.textContent='Good job, '+_un+'! Keep practising.';}
+  else if(score>=50){pm.style.background='#fffbeb';pm.style.color='#92400e';pm.textContent='Fair result, '+_un+'. Review the explanations and try again.';}
+  else{pm.style.background='#fef2f2';pm.style.color='var(--red)';pm.textContent='Keep going, '+_un+'! Practice makes perfect.';}
+  const rc=document.getElementById('review-container');rc.style.display='none';
+  rc.innerHTML=currentQuestions.map((q,i)=>{
+    const ua=userAnswers[i],isC=ua===q.answer;
+    return `<div class="card-flat anim-right" style="padding:14px 16px;border-left:3px solid ${isC?'var(--green)':'var(--red)'};animation-delay:${i*20}ms">
+      <p style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px">${i+1}. ${q.question}</p>
+      <div style="display:flex;flex-direction:column;gap:4px;font-size:12px">
+        <span style="color:var(--muted)">Your answer: <strong style="color:${isC?'var(--green)':'var(--red)'}">${ua?`${ua}. ${q.options[ua]||''}`:'—'}</strong></span>
+        ${!isC?`<span style="color:var(--muted)">Correct: <strong style="color:var(--green)">${q.answer}. ${q.options[q.answer]||''}</strong></span>`:''}
+      </div>
+      ${!isC&&q.explanation?`<p style="font-size:12px;color:var(--ink2);margin-top:6px;padding-top:6px;border-top:1px solid var(--border)">${q.explanation}</p>`:''}
+    </div>`;
+  }).join('')+(!checkAccess()?`<div style="background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid #fde68a;border-radius:14px;padding:18px 20px;margin-top:6px;display:flex;align-items:flex-start;gap:14px"><div style="width:40px;height:40px;border-radius:10px;background:#f59e0b;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="20" height="20" fill="none" stroke="#fff" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg></div><div><p style="font-size:14px;font-weight:700;color:#92400e;margin-bottom:4px"> Unlock Unlimited Access</p><p style="font-size:13px;color:#b45309;margin-bottom:10px">Activate your account to practise all questions with no limits.</p><a href="https://www.freshnote.com.ng/p/access-code.html" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#f59e0b;color:#fff;border-radius:9px;padding:9px 18px;font-size:13px;font-weight:700;text-decoration:none">Activate Full Access</a></div></div>`:'');
+  showScreen('results-screen');
+}
+function toggleReview(){reviewOpen=!reviewOpen;const rc=document.getElementById('review-container');const ch=document.getElementById('review-chevron');rc.style.display=reviewOpen?'flex':'none';if(ch)ch.style.transform=reviewOpen?'rotate(180deg)':'rotate(0)';}
+function retryQuiz(){const idx=courses.indexOf(currentCourse);if(idx>=0)startQuiz(idx);}
+function backToMenu(){stopTimer();showScreen('main-menu');}
+
+/* ═══════════════════════════════════════════════════════
+   HISTORY
+═══════════════════════════════════════════════════════ */
+async function showHistory(){
+  showScreen('history-screen');
+  try{
+    const hist=await getPerf();
+    if(hist.length){const avg=Math.round(hist.reduce((s,h)=>s+h.score,0)/hist.length);document.getElementById('total-quizzes').textContent=hist.length;document.getElementById('avg-score').textContent=`${avg}%`;document.getElementById('best-score').textContent=`${Math.max(...hist.map(h=>h.score))}%`;document.getElementById('clear-history-btn').style.display='block';}
+    else{['total-quizzes','avg-score','best-score'].forEach(id=>document.getElementById(id).textContent=id==='total-quizzes'?'0':'0%');document.getElementById('clear-history-btn').style.display='none';}
+    const list=document.getElementById('history-list');
+    if(!hist.length){list.innerHTML=`<div style="text-align:center;padding:48px 0;color:var(--muted)"><p style="font-size:14px;font-weight:600">No history yet</p><p style="font-size:13px;margin-top:4px">Complete a session to see results here</p></div>`;return;}
+    list.innerHTML=hist.map((item,i)=>{
+      const d=new Date(item.date);const ds=d.toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+      const sc=item.score>=70?'var(--green)':item.score>=50?'var(--gold)':'var(--red)';
+      const mb=item.mode==='study'?'<span class="badge badge-study">Study</span>':'<span class="badge badge-exam">Exam</span>';
+      return `<div class="card-flat anim-right" style="padding:14px 16px;animation-delay:${i*35}ms"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><p style="font-size:14px;font-weight:600;color:var(--ink);flex:1;margin-right:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${item.course}</p>${mb}</div><div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:12px;color:var(--muted)">${ds}</span><div style="display:flex;align-items:center;gap:14px"><span style="font-size:12px;color:var(--muted)">${item.time}</span><span style="font-size:16px;font-weight:700;color:${sc};font-family:'Playfair Display',serif">${item.score}%</span></div></div><div style="margin-top:8px;display:flex;gap:12px;font-size:12px"><span style="color:var(--green)">${item.correct} correct</span><span style="color:var(--red)">${item.wrong} wrong</span><span style="color:var(--muted)">of ${item.total}</span></div></div>`;
+    }).join('');
+  }catch(e){showToast('Failed to load history','error');}
+}
+function showClearConfirm(){document.getElementById('clear-modal').style.display='flex';}
+function hideClearModal(){document.getElementById('clear-modal').style.display='none';}
+async function clearHistory(){hideClearModal();try{await clearPerf();showToast('History cleared');showHistory();}catch(e){showToast('Failed','error');}}
+
+/* ═══════════════════════════════════════════════════════
+   DOWNLOADS
+═══════════════════════════════════════════════════════ */
+async function showDownloadManager(){showScreen('download-screen');await renderDL();}
+async function renderDL(){
+  const accordion=document.getElementById('dl-accordion');if(!accordion)return;
+  const dl=await getDownloaded();const dlT=new Set(dl.map(c=>c.title));
+  if(!courses.length){accordion.innerHTML='<p style="text-align:center;padding:40px 0;color:var(--muted);font-size:13px">No materials available.</p>';return;}
+  const groups={};courses.forEach(c=>{const cat=(c.category||'General').trim();if(!groups[cat])groups[cat]=[];groups[cat].push(c);});
+  accordion.innerHTML=Object.keys(groups).sort().map((cat,ci)=>{
+    const items=groups[cat];
+    const itemsHtml=items.map(c=>{
+      const isDl=dlT.has(c.title);const dlData=dl.find(d=>d.title===c.title);const days=dlData?Math.ceil((dlData.expiry-Date.now())/86400000):0;
+      if(isDl)return `<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:#f0fdf4;border:1.5px solid #bbf7d0;margin-bottom:6px"><div style="width:30px;height:30px;border-radius:7px;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" fill="none" stroke="#fff" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></div><div style="flex:1;min-width:0"><p style="font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.title}</p><p style="font-size:11px;color:${days<=30?'var(--gold)':'var(--green)'}">${dlData?dlData.questionCount+' questions · '+days+'d left':'Downloaded'}</p></div><button onclick="deleteCourse('${c.title.replace(/'/g,"\\'")}') " title="Remove" style="background:none;border:none;cursor:pointer;padding:5px;color:#fca5a5;border-radius:7px" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='#fca5a5'"><svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></div>`;
+      return `<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:var(--white);border:1.5px solid var(--border);margin-bottom:6px"><div style="width:30px;height:30px;border-radius:7px;background:var(--sky);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" fill="none" stroke="var(--blue)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div><div style="flex:1;min-width:0"><p style="font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.title}</p><p style="font-size:11px;color:var(--muted)">Not downloaded</p></div><button onclick="downloadCourse('${c.title.replace(/'/g,"\\'")}') " id="dlb_${c.title.replace(/[^a-zA-Z0-9]/g,'_')}" class="btn-blue" style="padding:7px 14px;font-size:12px;display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>Download</button></div>`;
+    }).join('');
+    return `<div class="card" style="overflow:hidden;margin-bottom:2px"><button onclick="toggleDlCat(${ci})" style="width:100%;display:flex;align-items:center;gap:12px;padding:14px 18px;background:none;border:none;cursor:pointer;font-family:'Outfit',sans-serif;text-align:left"><div style="width:34px;height:34px;border-radius:9px;background:var(--sky);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" fill="none" stroke="var(--blue)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg></div><div style="flex:1;min-width:0"><p style="font-size:14px;font-weight:700;color:var(--ink)">${cat}</p><p style="font-size:11px;color:var(--muted);margin-top:1px">${items.length} material${items.length!==1?'s':''}</p></div><svg id="dlchev_${ci}" width="15" height="15" fill="none" stroke="var(--muted)" viewBox="0 0 24 24" style="flex-shrink:0;transition:transform 0.25s;transform:rotate(-90deg)"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div id="dlcatbody_${ci}" style="display:none;padding:0 14px 14px;border-top:1px solid var(--border)"><div style="padding-top:10px">${itemsHtml}</div></div></div>`;
+  }).join('');
+}
+function toggleDlCat(ci){const b=document.getElementById(`dlcatbody_${ci}`),c=document.getElementById(`dlchev_${ci}`);if(!b)return;const o=b.style.display!=='none';b.style.display=o?'none':'block';if(c)c.style.transform=o?'rotate(-90deg)':'rotate(0deg)';}
+async function downloadCourse(title){
+  const course=courses.find(c=>c.title===title);if(!course)return;
+  if(await getOfflineCourse(title)){showToast('Already downloaded');return;}
+  const id=`dlb_${title.replace(/[^a-zA-Z0-9]/g,'_')}`,btn=document.getElementById(id);
+  if(btn){btn.disabled=true;btn.innerHTML='<svg class="spin" width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> Downloading...';}
+  try{const qs=await fetchQs(course.link);if(!qs.length){showToast('No questions found.','error');if(btn)btn.disabled=false;return;}await saveOffline(title,course.link,qs);showToast(`${title} downloaded`);await renderDL();}
+  catch(e){console.error(e);showToast('Download failed.','error');if(btn){btn.disabled=false;btn.innerHTML='<svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>Download';}}
+}
+async function deleteCourse(title){await deleteOffline(title);showToast(`${title} removed`);await renderDL();}
+
+/* ═══════════════════════════════════════════════════════
+   FAVOURITES
+═══════════════════════════════════════════════════════ */
+async function refreshFavBtn(){
+  const btn=document.getElementById('fav-btn'),icon=document.getElementById('fav-icon'),lbl=document.getElementById('fav-label');
+  if(!btn||!currentQuestions.length)return;
+  const q=currentQuestions[currentQuestionIndex];const ex=await isFavorited(q.question,currentCourse.title);
+  if(ex){icon.style.fill='#d97706';icon.style.stroke='#d97706';lbl.textContent='Saved';btn.style.color='#d97706';btn.dataset.favId=ex.id;}
+  else{icon.style.fill='none';icon.style.stroke='currentColor';lbl.textContent='Save';btn.style.color='var(--muted)';btn.dataset.favId='';}
+}
+async function toggleFavorite(){
+  const q=currentQuestions[currentQuestionIndex];const ex=await isFavorited(q.question,currentCourse.title);
+  if(ex){await deleteFavorite(ex.id);showToast('Removed from Favourites');}
+  else{await saveFavorite(q,currentCourse.title);showToast('Saved to Favourites');}
+  await refreshFavBtn();
+}
+async function showFavorites(){
+  showScreen('favorites-screen');
+  const favs=await getFavorites();
+  const cb=document.getElementById('favorites-count-bar'),ct=document.getElementById('favorites-count-text'),cfb=document.getElementById('clear-favs-btn'),list=document.getElementById('favorites-list');
+  if(favs.length){cb.style.display='flex';ct.textContent=`${favs.length} saved question${favs.length!==1?'s':''}`;cfb.style.display='block';}
+  else{cb.style.display='none';cfb.style.display='none';}
+  if(!favs.length){list.innerHTML=`<div style="text-align:center;padding:56px 0;color:var(--muted)"><p style="font-size:14px;font-weight:600">No favourites yet</p><p style="font-size:13px;margin-top:4px">Tap Save on any question during a quiz</p></div>`;return;}
+  list.innerHTML=favs.map((fav,i)=>{
+    const q=fav.question;const dt=new Date(fav.savedAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    const opts=['A','B','C','D'].filter(l=>q.options[l]);
+    const optsHtml=opts.map(l=>`<div style="display:flex;align-items:flex-start;gap:8px;padding:7px 10px;border-radius:8px;background:${l===q.answer?'#f0fdf4':'var(--bg)'};border:1.5px solid ${l===q.answer?'#bbf7d0':'var(--border)'}"><span style="width:22px;height:22px;border-radius:6px;background:${l===q.answer?'var(--green)':'var(--border)'};color:${l===q.answer?'#fff':'var(--muted)'};font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">${l}</span><span style="font-size:13px;line-height:1.5;color:var(--ink)">${q.options[l]}</span></div>`).join('');
+    return `<div class="card anim-right" style="padding:20px 22px;animation-delay:${i*30}ms"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px"><div style="flex:1"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap"><span style="font-size:11px;font-weight:700;background:var(--sky);color:var(--blue);border-radius:99px;padding:3px 10px">${fav.courseName}</span><span style="font-size:11px;color:var(--muted)">${dt}</span></div><p style="font-size:14px;font-weight:600;color:var(--ink);line-height:1.55">${q.question}</p></div><button onclick="removeFav(${fav.id})" style="background:none;border:none;cursor:pointer;color:#fca5a5;padding:4px;flex-shrink:0;border-radius:8px" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='#fca5a5'"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></div><div style="display:flex;flex-direction:column;gap:6px;margin-bottom:${q.explanation?'12px':'0'}">${optsHtml}</div>${q.explanation?`<div style="margin-top:10px;padding:10px 12px;background:#f0f7ff;border:1.5px solid #bfdbfe;border-radius:8px"><p style="font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">Explanation</p><p style="font-size:13px;color:var(--ink2);line-height:1.55">${q.explanation}</p></div>`:''}</div>`;
+  }).join('');
+}
+async function removeFav(id){await deleteFavorite(id);showToast('Removed from Favourites');showFavorites();}
+function showClearFavsConfirm(){document.getElementById('clear-favs-modal').style.display='flex';}
+function hideClearFavsModal(){document.getElementById('clear-favs-modal').style.display='none';}
+async function clearAllFavorites(){hideClearFavsModal();const favs=await getFavorites();for(const f of favs)await deleteFavorite(f.id);showToast('All favourites cleared');showFavorites();}
+
+/* ═══════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════ */
+let _initDone=false;
+async function initApp(){
+  if(_initDone)return;_initDone=true;
+  isOffline=!navigator.onLine;
+  window.addEventListener('online',()=>isOffline=false);
+  window.addEventListener('offline',()=>isOffline=true);
+  const escape=setTimeout(()=>{courses=courses||[];renderCourseList();showScreen('main-menu');},15000);
+  try{
+    courses=await getData('main_courses');
+    if(!courses&&!isOffline){
+      try{
+        courses=await fetchMain();
+        if(courses&&courses.length){courses.sort((a,b)=>a.title.localeCompare(b.title));storeData('main_courses',courses);}
+      }catch(e){console.warn('[NMCN] fetchMain failed:',e.message);courses=[];}
+    }
+    courses=(courses||[]).sort((a,b)=>a.title.localeCompare(b.title));
+    clearTimeout(escape);renderCourseList();showScreen('main-menu');
+    if(!courses.length)showToast('No courses loaded — check connection.','error');
+  }catch(e){clearTimeout(escape);console.error('[NMCN] initApp error:',e);courses=[];renderCourseList();showScreen('main-menu');showToast('Failed to load. Check connection.','error');}
+}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',initApp);}else{initApp();}
+</script>
